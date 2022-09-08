@@ -26,7 +26,7 @@ def insertDetails():
         'name': name,
         'email': email
         })
-       return "Your name is : "+name +" and email is : "+ email +" and your account is successfully created"
+       return "Your name is : "+str(name) +" and email is : "+ str(email) +" and your account is successfully created"
     return render_template("Success.html")
 
 
