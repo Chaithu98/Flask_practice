@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify, Response, json
 from flask_pymongo import PyMongo, ObjectId
+import os
 
 app = Flask(__name__)
 
@@ -7,8 +8,7 @@ app.config['MONGO_URI']="mongodb://localhost/Cafe"
 mongo = PyMongo(app)
 db = mongo.db.users
 
-
-@app.route("/")
+@app.route("/",methods=['GET'])
 def index():
     return render_template("index.html")
 
@@ -20,20 +20,16 @@ def getUsers():
 @app.route("/register", methods=['GET','POST'])
 def insertDetails():
     if request.method == "POST":
-       name = request.form.get("name")
-       email = request.form.get("email")
-       id = db.insert_one({
+        name = request.form.get("name")
+        email = request.form.get("email")
+        password = request.form.get("password")
+        id = db.insert_one({
         'name': name,
-        'email': email
+        'email': email,
+        'password':password
         })
-       return "Your name is : "+str(name) +" and email is : "+ str(email) +" and your account is successfully created"
-    return render_template("Success.html")
+        return "Your name is : "+str(name) +" and email is : "+ str(email) +" and your account is successfully created"
+    return render_template("Display.html")
 
 if __name__ == "__main__":
     app.run(debug=True, port=2000)
-
-
-# mongo -->   { 
-#                  name: tom
-#                  email: tom@gmail.com            
-# }

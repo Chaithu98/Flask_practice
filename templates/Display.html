@@ -1,12 +1,103 @@
-{% extends 'index.html' %} 
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{
+  text-align:center;
+  background-image: url("/static/cafe.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
 
-{% block body %}
-    <h1>This is working</h1>
+* {
+  box-sizing: border-box;
+}
+/* Add styles to the form container */
+.container {
+  margin: 20px;
+  max-width: 300px;
+  padding: 16px;
+  border-radius: 16px;
+  display: inline-block;
+  background-color: rgb(255, 255, 255, 0.10);
+  box-shadow: 0 8px 32px 0  rgb(31, 38, 135, 0.70);
+  text-align: left;
+  color: aliceblue;
+}
 
-    {% for user in newuser %}
-        <h4>{{user}}</h4>
-    {% endfor %}
+.text-box{
+  width: 100%;
+  overflow: hidden;
+  border-radius: 15px;
+  margin: 8px 0;
+  padding: 8px 0;
+  background: rgb(255, 255, 255, 0.01);
+  border-bottom: 1px solid #4caf50;
+  gap: 20px;
+}
 
+.text-box input{
+  border: none;
+  outline: none;
+  background: none;
+  border-bottom: 1px solid #4caf50;
+  width: 200px;
+  height: 50px;
+ 
 
-{% endblock %} 
+}
+
+/* input[type=text]:focus,input[type=email]:focus, input[type=password]:focus{
+  background-color: hsl(43, 41%, 97%);
+  border: none;
+  outline: none;
+} */
+
+/* Set a style for the submit button */
+.btn {
+  background-color: #2482ae;
+  color: #080101;
+  padding: 16px 20px;
+  border-radius: 16px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.btn:hover {
+  opacity: 1;
+}
+
+.top{
+  margin-top:75px;
+}
+h1{
+ text-align: center;
+ border-bottom: 6px solid #4caf50;
+ margin-bottom: 50px;
+}
+
+</style>
+</head>
+<body>
+<div class="top"></div>
+<div class="container">
+  <form action="{{ url_for("insertDetails")}}" method="post" >
+    <h1>Register</h1>
+    <div class="text-box">
+    <input type="text" placeholder="Name" name="name" required>
+    <input type="email" placeholder="Email" name="email" required>
+    <input type="password" placeholder="Password" name="password" required>
+
+    <button type="submit" class="btn">Sign Up</button>
+  </div>
+  </form>
+</div>
+</body>
+</html>
+
 
