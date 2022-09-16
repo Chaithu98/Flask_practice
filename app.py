@@ -25,10 +25,6 @@ def insertDetails():
         name = request.form.get("name")
         email = request.form.get("email")
         password = request.form.get("password")
-        session['email']=email
-        mail=list(db.find({'email':email}))
-        if(mail):
-            flash(f'"email already exists please enter a new email"','danger')
         db.insert_one({
         'name': name,
         'email': email,

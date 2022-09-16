@@ -1,17 +1,48 @@
-{% extends "index.html" %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/static/style.css">
+	<style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&family=Poppins:wght@400;500;600&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
 
-{% block title %}Sign in{% endblock %}
+.signup_link{
+  margin: 30px 0;
+  text-align: center;
+  font-size: 16px;
+  color: #f5efef;
+}
+.signup_link a{
+  color: #2691d9;
+  text-decoration: none;
+}
+.signup_link a:hover{
+  text-decoration: underline;
+}
+</style>
 
-{% block body %}
-<div>
-    <form action="{{ url_for("insertDetails")}}" method="post" class="container">
-      <h1>Login</h1>
-      <div class="text-box">
-      <input type="email" placeholder="Email" name="email" required>
-      <input type="password" placeholder="Password" name="password" required>
-  
-      <button type="submit" class="btn">Sign In</button>
-      </div>
-    </form>
-  </div>
-{% endblock %}
+  </head>
+  <body>
+    <div class="bg">
+      <form action="{{ url_for("insertDetails")}}" method="post" class="container">
+        <h1>Log In</h1>
+        <div class="text-box">
+        <input type="email" placeholder="Email" name="email" required>
+        <input type="password" placeholder="Password" name="password" required>
+    
+        <button type="submit" class="btn">Sign In</button>
+        <div class="signup_link">
+          Not a registered user? <a href="{{ url_for('insertDetails') }}">Sign Up</a>
+        </div>
+        </div>
+      </form>
+    </div> 
+
+  </body>
+</html>

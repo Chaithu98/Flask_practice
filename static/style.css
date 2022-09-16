@@ -1,12 +1,3 @@
-.bgimg{
-    text-align:center;
-    background: url('/static/cafe.jpg ');
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 100%;
-    height: 800px;
-}
-
 .bg{
     background:linear-gradient(rgba(0,0,0,0.6),rgba(117, 66, 66, 0.3)),url('/static/cafe.jpg ');
     /* background-image: url('/static/cafe.jpg '); */
