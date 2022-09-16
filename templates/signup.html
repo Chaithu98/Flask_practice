@@ -1,0 +1,18 @@
+{% extends "index.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+<div class="bg">
+    <form action="{{ url_for("insertDetails")}}" method="post" class="container">
+      <h1>Register</h1>
+      <div class="text-box">
+      <input type="text" placeholder="Name" name="name" required>
+      <input type="email" placeholder="Email" name="email" required>
+      <input type="password" placeholder="Password" name="password" required>
+  
+      <button type="submit" class="btn">Sign Up</button>
+      </div>
+    </form>
+  </div> 
+{% endblock %}

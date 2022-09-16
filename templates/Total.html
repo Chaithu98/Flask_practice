@@ -1,0 +1,12 @@
+{% extends "Helping.html" %}
+{% block body %} 
+<h1>Total Items:</h1> 
+<div class="values">
+    <form action= "{{ url_for("totalItems")}}" method="post" align="center">
+        <label for="Item">Item:</label>
+        <input type="text" name="name"><br><br>
+        <label for="Quantity">Quantity:</label>
+        <input type="number" name="quantity"><br><br>
+        <button type="submit">Total</button>
+</div>
+{% endblock %}

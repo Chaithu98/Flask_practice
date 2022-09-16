@@ -5,35 +5,45 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <style>
-    h1 {
-      text-align: center;
-    }
-    li {
+
+li {
   display: inline;
 }
-.nav{
-  width :100%;
-  display: inline-block;
-  background-color: rgb(116, 159, 177);
-  text-align: right;
-  color: aliceblue;
+
+a:link{
+    text-decoration: none;
 }
+
+a{
+    justify-content: space-between;
+}
+
+#lst{
+    display: flex;
+    justify-content: space-evenly;
+}
+h2{
+    display: inline;
+}
+
 </style>
- <body>
-    <div class="nav">
-    <ul>
-        <li><a href="{{url_for('index')}}">Home</a></li>
-        <li><a href="{{url_for('insertDetails')}}">Siqn Up</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a href="#about">About</a></li>
-    </ul>
-    </div>
-    <img src="{{url_for('static',filename='cafe.jpg')}}" width="1250" height="600">
-   
+
+ <body class="bg">  
     {% block body %} 
-    {% endblock %}
+    <h2>Coffee On Clouds</h2>
+    <div class="nav"> 
+        <ul id="lst">
+            <li><a href="{{url_for('index')}}">Home</a></li>
+            <li><a href="{{url_for('insertDetails')}}">Sign Up</a></li>
+            <li><a href="{{url_for('login')}}">Sign In</a></li>
+            <li><a href="{{url_for('orderItems')}}">Total</a></li>
+        </ul>
+    </div>
+    {% endblock %}   
+    <!-- <img src="{{url_for('static',filename='cafe.jpg')}}" width="1250" height="600"> -->
 </body>
 </html>
 
