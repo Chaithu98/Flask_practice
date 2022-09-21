@@ -13,11 +13,10 @@ db = mongo.db.users
 db2=mongo.db.prices
 orders=mongo.db.orders
 total=mongo.db.total
+ref=mongo.db.ref
 
 @app.route("/")
 def index():
-    # if 'user' in session:
-    #     return 'You are logged in as '+ session['user']
     session['total']=0
     return render_template("index.html")
     
@@ -38,7 +37,7 @@ def signup():
             })
             session['user']=request.form['name']
             return render_template('Signin.html',word="Registered successfully!")
-        flash(f'User already exist','hello')
+        flash(f'User already exist','danger')
     return render_template("signup.html")
 
 @app.route("/Signin", methods=['GET','POST'])
@@ -64,16 +63,22 @@ def updateCost():
         'Cost':60,
         })
     
-
 @app.route('/OrderDetails',methods=['GET','POST'])
 def totalItems():
     if request.method == "POST":
         customers()
+        values=list(orders.find({},{'_id':0,'Item':1,'Cost':1,'Quantity':1,'qtyCost':1}))
+        existing_user=total.find_one({'email':session['customer']},{'total':1})
+        if existing_user is None:
+            total.insert_one({'email':session['customer'],'Details':[values] ,'total':session['total']})
+        else:
+            total.update_one({'email':session['customer']},{'$push':{'Details':values}})
+            total.update_one({'email':session['customer']},{'$set':{'total':session['total']+existing_user['total']}})    
         orders.delete_many({})
         session['total']=0
         session['customer']=0
         return redirect("/")
-    return render_template("Total.html",newuser=orders.find({}),total=session['total'])
+    return render_template("Total.html",newuser=orders.find(),total=session['total'])
 
 
 @app.route('/Menu',methods=['GET','POST'])
@@ -125,7 +130,7 @@ def customers():
     s.login("krishnakanha324@gmail.com", "lwwkgnghvuhjaegs")
     query=orders.find({},{'Item':1,'Cost':1})
     print(query[0]['Item'])
-    message = "-------------Welcome to Coffe on clouds-----------\n"
+    message = "-------------Welcome to Coffee on clouds-----------\n"
     for item in query:
         st=str(item['Item'])
         c=str(item['Cost'])
@@ -135,7 +140,7 @@ def customers():
     print(message)
     try:
         val=session['customer']
-        #s.sendmail("krishnakanha324@gmail.com", val, message)
+        s.sendmail("krishnakanha324@gmail.com", val, message)
         print('notification sent')
     except:
         print('error sending notification')
