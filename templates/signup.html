@@ -1,7 +1,7 @@
-{% extends "index.html" %}
+{% extends "registered.html" %}
 {% block body %}
-<div class="bg">
-    <form action="{{ url_for("insertDetails")}}" method="post" class="container">
+<div>
+    <form action="{{ url_for("signup")}}" method="post" class="container">
       <h1>Register</h1>
       <div class="text-box">
       <input type="text" placeholder="Name" name="name" required>

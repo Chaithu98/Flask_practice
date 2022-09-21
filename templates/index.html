@@ -8,7 +8,68 @@
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <style>
-
+.center{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 10px 10px 15px rgba(0,0,0,0.05);
+}
+.center h1{
+  text-align: center;
+  padding: 20px 0;
+  border-bottom: 1px solid silver;
+}
+.center form{
+  padding: 0 40px;
+  box-sizing: border-box;
+}
+form .txt_field{
+  position: relative;
+  border-bottom: 2px solid #adadad;
+  margin: 30px 0;
+}
+.txt_field input{
+  width: 100%;
+  padding: 0 5px;
+  height: 40px;
+  font-size: 16px;
+  border: none;
+  background: none;
+  outline: none;
+}
+.txt_field label{
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  color: #adadad;
+  transform: translateY(-50%);
+  font-size: 16px;
+  pointer-events: none;
+  transition: .5s;
+}
+.txt_field span::before{
+  content: '';
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: #2691d9;
+  transition: .5s;
+}
+.txt_field input:focus ~ label,
+.txt_field input:valid ~ label{
+  top: -5px;
+  color: #2691d9;
+}
+.txt_field input:focus ~ span::before,
+.txt_field input:valid ~ span::before{
+  width: 100%;
+}
 li {
   display: inline;
 }
@@ -18,7 +79,7 @@ a:link{
 }
 
 a{
-    color: aliceblue;
+    color: rgb(243, 245, 246);
     justify-content: space-between;
 }
 
@@ -27,23 +88,46 @@ a{
     justify-content: space-evenly;
 }
 h2{
+    color: white;
     display: inline;
 }
-
+.total-btn{
+  color: #eee;
+  padding: 10px 20px;
+  background-color: #2482ae;
+}
 </style>
-
- <body class="bg">  
-    {% block body %} 
+ <body class="bgim">   
     <h2>Coffee On Clouds</h2>
-    <div class="nav"> 
+    <div> 
         <ul id="lst">
             <li><a href="{{url_for('index')}}">Home</a></li>
-            <li><a href="{{url_for('login')}}">Sign In</a></li>
-            <li><a href="{{url_for('orderItems')}}">Total</a></li>
+        {% if session.user %}
+            <li><a href="{{ url_for('logout') }}">Sign Out</li></a>
+            <li><a href="{{ url_for('orderItems') }}">Menu</li></a>
+        {% else %}
+            <li><a href="{{ url_for('login') }}">Sign In</li></a>
+        {% endif %}
         </ul>
-    </div>
-    {% endblock %}  
+    </div> 
     <!-- <img src="{{url_for('static',filename='cafe.jpg')}}" width="1250" height="600"> -->
+    {% if session.user %}
+        <h2 style="text-align: center;color: #f2f5f9;padding: top 30px;">Welcome {{session.user}} !</h2><br><br>
+    {% endif %}
+<div class="center">
+    <form action= "{{ url_for("customersinfo")}}" method="post" align="center">
+        <div class="txt_field">
+            <input type="text" required name="email">
+            <span></span>
+            <label>Email</label>
+          </div>
+        <button class="totan-btn" type="submit">Add Customer</a></button><br><br>
+    </form>
+</div>
+{% if session.customer %}
+        <h2 style="text-align: center;color: #f2f5f9;padding: top 30px;">Customer mail ID : {{session.customer}} </h2>
+{% endif %}
+    
 </body>
 </html>
 

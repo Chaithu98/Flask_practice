@@ -1,18 +1,87 @@
 {% extends "Helping.html" %}
-{% block body %} 
-<h1>Cost For Taste</h1> 
-    <div class="values">  
-        <table  style="margin-top: 50px;">
-            <tr style="font-size: 50px;">
-              <th>Items</th>
-              <th>Cost</th>
-            </tr>
-            {% for item in display %}
-            <tr>
-              <td>{{item['Item']}}</td>
-              <td>{{item['Cost']}}</td>
-            </tr>
-            {% endfor %}
-          </table>
-<button style="float:right;padding: 10px;"><a href="{{url_for('totalItems')}}">Add</a></button> <br><br>
+{% block body %}
+
+<style>
+  .radio-toolbar input[type="radio"] {
+    opacity: 0;
+    width: 0;
+    position: fixed;
+  }
+
+  .radio-toolbar label {
+    display: inline-block;
+    background-color: rgb(107, 235, 227);
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: 2px solid #444;
+    border-radius: 4px;
+    width: 6rem;
+
+  }
+
+  .radio-toolbar input[type="radio"]:checked+label {
+    background-color: #bfb;
+    border-color: #4c4;
+  }
+
+  .radio-toolbar input[type="radio"]:focus+label {
+    border: 2px dashed #444;
+  }
+  th{
+    margin: 2rem;
+  }
+</style>
+
+<div class="values">
+  <form action="{{ url_for("orderItems")}}" method="post" align="center">
+    <table cellspacing="15" style="margin-left: 10px;margin-top: 50px;">
+      <tr style="font-size: 30px;">
+        <th>Items</th>
+        <th>Cost</th>
+      </tr>
+      {% for item in display %}
+      <tr>
+        <td class="radio-toolbar">
+          <input class="radio-btn" type="radio" id="{{item['Item']}}" name="Item" value={{item['Item']}} required>
+          <label class="radio-label" for="{{item['Item']}}">{{item['Item']}}</label>
+        </td>
+        <td>{{item['Cost']}}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    <h2 style="text-align: center;">Quantity:
+      <select name="quantity" required>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+    </h2>
+    <button style="float:center;padding: 10px;" type="submit">Add Item</a></button>
+    <br><br>
+</div>
+<div class="values value-table">
+  <table cellspacing="15" style="margin-top: 50px;margin-right: 100px;">
+    <tr style="font-size: 30px;border:2rem">
+      <th>Items</th>
+      <th>Cost</th>
+      <th>Quantity</th>
+      <th>Total</th>
+    </tr>
+    {% for item in newuser %}
+    <tr>
+      <td>{{item['Item']}}</td>
+      <td>{{item['Cost']}}</td>
+      <td>{{item['Quantity']}}</td>
+      <td>{{item['qtyCost']}}</td>
+
+    </tr>
+    {% endfor %}
+  </table>
+  <h2 class="cost">Total Cost:{{total}}</h2>
+  <button class="total-btn" type="submit"><a href="{{ url_for('totalItems') }}">Total</a></button><br><br>
+</div>
+
+</form>
 {% endblock %}

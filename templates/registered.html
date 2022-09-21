@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/static/style.css">
+	<style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&family=Poppins:wght@400;500;600&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+.signup_link{
+  margin: 30px 0;
+  text-align: center;
+  font-size: 16px;
+  color: #f5efef;
+}
+.signup_link a{
+  color: #102cdf;
+  text-decoration: none;
+}
+.signup_link a:hover{
+  text-decoration: underline;
+}
+</style>
+</head>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+
+        {% if messages %}
+
+            {% for category, message in messages %}
+
+                <div class="alert alert-{{ category }}" style="color: White;">
+
+                    <center>{{ message }}</center>
+
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+  <body class="bg">
+    {% block body %}
+    {% endblock %}
+  </body>
+</html>

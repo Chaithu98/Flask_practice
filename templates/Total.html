@@ -1,12 +1,21 @@
 {% extends "Helping.html" %}
 {% block body %} 
-<h1>Total Items:</h1> 
+<h2>Total Items:</h2> 
 <div class="values">
-    <form action= "{{ url_for("totalItems")}}" method="post" align="center">
-        <label for="Item">Item:</label>
-        <input type="text" name="name"><br><br>
-        <label for="Quantity">Quantity:</label>
-        <input type="number" name="quantity"><br><br>
-        <button type="submit">Total</button>
+    {% for item in newuser %}
+      <tr>
+        <td>{{item['Item']}}</td>
+        <td>{{item['Cost']}}</td>
+        <td>{{item['Quantity']}}</td>
+        <td>{{item['qtyCost']}}</td>
+        <button class="update-btn"><a href="{{ url_for('updateItem',id=item['_id']) }}">Update</a></button>
+        <button class="delete-btn"><a href="{{ url_for('deleteItem',id=item['_id']) }}">Delete</a></button><br><br>
+      </tr>        
+      {% endfor %}
+      <form action= "{{ url_for("totalItems")}}" method="post" align="center">
+        <button id="reset" type="submit">Reset</a></button><br><br>
+      </form>
+      
+      <h2 style="float:right;">Total Cost: {{total}}</h2>
 </div>
 {% endblock %}
